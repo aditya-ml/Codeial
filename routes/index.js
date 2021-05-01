@@ -11,6 +11,7 @@ router.get('/', homeController.home) // '/' is the url where I want to put it
 //when the request if /users ie. path is/users, you can just require ./users
 
 router.use('/users', require('./users'));
+router.use('/posts', require('./posts'));
 
 //for any further routes, access from here
 //router.use('/routerName', require('./routerFile'));
