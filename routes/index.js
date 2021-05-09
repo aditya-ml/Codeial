@@ -13,6 +13,9 @@ router.get('/', homeController.home) // '/' is the url where I want to put it
 router.use('/users', require('./users'));
 router.use('/posts', require('./posts'));
 router.use('/comments', require('./comments'));
+
+router.use('/api', require('./api'));
+
 //for any further routes, access from here
 //router.use('/routerName', require('./routerFile'));
 
