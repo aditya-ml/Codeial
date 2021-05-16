@@ -3,22 +3,22 @@ const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
 const User = require('../models/user');
 
-// tell passport to use a new strategy for user login
+
+// tell passport to use a new strategy for google login
 passport.use(new googleStrategy({
-    clientID: "549867391163-a3128o2mhgbldsaovjm1afakirtmli5v.apps.googleusercontent.com",
-    clientSecret: "6YgPJZf8MgplQieOkBSZcAYr",
-    callbackURL: "http://localhost:8000/users/auth/google/callback"
-    
+        clientID: "313233209747-dnqmail3j800a2jvsuckqhohodhs7i63.apps.googleusercontent.com",
+        clientSecret: "0FXb5EBWa4xRfJ8jR-1HKMd2",
+        callbackURL: "http://localhost:8000/users/auth/google/callback",
     },
 
     function(accessToken, refreshToken, profile, done){
-        // find the user
+        // find a user
         User.findOne({email: profile.emails[0].value}).exec(function(err, user){
-            if (err){console.log("error", err); return;}
+            if (err){console.log('error in google strategy-passport', err); return;}
             console.log(accessToken, refreshToken);
             console.log(profile);
 
-            if(user){
+            if (user){
                 // if found, set this user as req.user
                 return done(null, user);
             }else{
@@ -28,12 +28,17 @@ passport.use(new googleStrategy({
                     email: profile.emails[0].value,
                     password: crypto.randomBytes(20).toString('hex')
                 }, function(err, user){
-                    if (err){console.log("error", err); return;}
+                    if (err){console.log('error in creating user google strategy-passport', err); return;}
+
                     return done(null, user);
-                })
+                });
             }
-        });
+
+        }); 
     }
+
+
 ));
+
 
 module.exports = passport;
