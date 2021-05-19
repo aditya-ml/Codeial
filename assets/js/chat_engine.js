@@ -27,10 +27,11 @@ class ChatEngine{
         });
 
         $('#send-message').click(function(){
+            console.log("inside button")
             let msg = $('#chat-message-input').val();
-
+            console.log(msg);
             if (msg!=''){
-                self.socket.emit('send-message', {
+                self.socket.emit('send_message', {
                     message: msg,
                     user_email: self.userEmail,
                     chatroom: 'codeial'

@@ -3,9 +3,9 @@ module.exports.chatSockets = function(socketServer){
 
     io.sockets.on('connection', function(socket){
         console.log('new connection received', socket.id);
-        // socket.on('disconnect', function(){
-        //     console.log('socket disconnected!');
-        // });
+        socket.on('disconnect', function(){
+            console.log('socket disconnected!');
+        });
 
         socket.on('join_room', function(data){
             console.log('joining req rec.', data);
